@@ -6,6 +6,8 @@
 
 Every application needs log and we take advantage of Meteor methods to also send logs from the client.
 
+We don't load heavy dependencies in the client instead we use Meteor methods to send the logs from the client to the server and then to the final destination and to the server console.
+
 We believe we are not reinventing the wheel in this package but what we are doing is like putting together the wheels in the vehicle :).
 
 ## Installation
