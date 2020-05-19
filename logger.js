@@ -42,7 +42,7 @@ const includeIfExist = (text, variable) => {
   if (variable.length === 0) {
     return '';
   }
-  const message = variable.length ? variable.join(' | ') : variable;
+  const message = Array.isArray(variable) ? variable.join(' | ') : variable;
   return `, ${text}: ${message}`;
 };
 
