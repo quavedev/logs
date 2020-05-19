@@ -1,11 +1,17 @@
 /* eslint-disable no-console */
 import { Meteor } from 'meteor/meteor';
 import { logger } from 'meteor/quave:logs/logger';
+import { PACKAGE_NAME, settings } from './loggerCommon';
+
+const { isVerbose } = settings;
 
 const CLIENT_TAG = 'client';
 Meteor.methods({
   quaveSendLogToServer({ level, args = {} }) {
     this.unblock();
+    if (isVerbose) {
+      console.log(`${PACKAGE_NAME}`, JSON.stringify(args));
+    }
     const scope = {
       userId: this.userId,
       userAgent:
