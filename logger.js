@@ -20,7 +20,6 @@ if (isVerbose) {
 }
 
 if (loggly.token) {
-
   if (isVerbose) {
     console.log(`${PACKAGE_NAME} winston.add`);
   }
@@ -64,7 +63,7 @@ const extractGraphqlError = error => {
     .join('\n')}`;
 };
 
-const sendLog = ({ message: finalMessage, error, tags, level }) => {
+const sendLog = ({ message: finalMessage, error, data, tags, level }) => {
   const graphqlErrorMessage = extractGraphqlError(error);
   const message =
     error && (error.message || error.stack)
@@ -81,9 +80,11 @@ const sendLog = ({ message: finalMessage, error, tags, level }) => {
     if (isVerbose) {
       console.log(`${PACKAGE_NAME} sendLog winston.log level`, level);
     }
+
     winston.log({
       level,
-      message,
+      ...(message && message.toString ? { message: message.toString() } : {}),
+      data,
       tags: [
         ...(tags || []),
         ...(graphqlErrorMessage ? ['graphql'] : []),
@@ -98,29 +99,32 @@ const sendLog = ({ message: finalMessage, error, tags, level }) => {
 };
 
 export const logger = {
-  info({ message, error, tags }) {
+  info({ message, error, tags, data }) {
     console.log(message);
     sendLog({
       message,
       error,
+      data,
       tags,
       level: LOG_LEVELS.INFO,
     });
   },
-  warn({ message, error, tags }) {
+  warn({ message, error, tags, data }) {
     console.warn(message, error);
     sendLog({
       message,
       error,
+      data,
       tags,
       level: LOG_LEVELS.WARN,
     });
   },
-  error({ message, error, tags }) {
+  error({ message, error, tags, data }) {
     console.error(message, error);
     sendLog({
       message,
       error,
+      data,
       tags,
       level: LOG_LEVELS.ERROR,
     });
