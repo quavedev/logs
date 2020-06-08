@@ -10,7 +10,7 @@ Meteor.methods({
   quaveSendLogToServer({ level, args = {} }) {
     this.unblock();
     if (isVerbose) {
-      console.log(`${PACKAGE_NAME}`, JSON.stringify(args));
+      console.log(`${PACKAGE_NAME} quaveSendLogToServer`, JSON.stringify(args));
     }
     const scope = {
       userId: this.userId,

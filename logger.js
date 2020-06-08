@@ -63,7 +63,14 @@ const extractGraphqlError = error => {
     .join('\n')}`;
 };
 
-const sendLog = ({ message: finalMessage, error, data, tags, level }) => {
+const sendLog = ({
+  message: finalMessage,
+  error,
+  tags,
+  level,
+  isSend = true,
+  ...rest
+}) => {
   const graphqlErrorMessage = extractGraphqlError(error);
   const message =
     error && (error.message || error.stack)
@@ -76,15 +83,18 @@ const sendLog = ({ message: finalMessage, error, data, tags, level }) => {
         )}`
       : finalMessage;
 
-  if (loggly.token) {
-    if (isVerbose) {
-      console.log(`${PACKAGE_NAME} sendLog winston.log level`, level);
-    }
+  const { messagesToSkip } = loggly || {};
+  const messageToSend =
+    message && message.toString ? message.toString() : undefined;
+  const isMessageToSkipSend =
+    messagesToSkip &&
+    messagesToSkip.length &&
+    messagesToSkip.some(message => messageToSend.includes(message));
 
-    winston.log({
+  if (loggly.token && isSend && !isMessageToSkipSend) {
+    const log = {
       level,
-      ...(message && message.toString ? { message: message.toString() } : {}),
-      data,
+      ...(messageToSend ? { message: messageToSend } : {}),
       tags: [
         ...(tags || []),
         ...(graphqlErrorMessage ? ['graphql'] : []),
@@ -94,38 +104,39 @@ const sendLog = ({ message: finalMessage, error, data, tags, level }) => {
           ? [Meteor.settings.public.env]
           : []),
       ],
-    });
+      ...rest,
+    };
+    if (isVerbose) {
+      console.log(`${PACKAGE_NAME} sendLog winston.log`, log);
+    }
+    winston.log(log);
   }
 };
 
 export const logger = {
-  info({ message, error, tags, data }) {
+  info({ message, ...rest }) {
     console.log(message);
     sendLog({
       message,
-      error,
-      data,
-      tags,
+      ...rest,
       level: LOG_LEVELS.INFO,
     });
   },
-  warn({ message, error, tags, data }) {
+  warn({ message, error, ...rest }) {
     console.warn(message, error);
     sendLog({
       message,
       error,
-      data,
-      tags,
+      ...rest,
       level: LOG_LEVELS.WARN,
     });
   },
-  error({ message, error, tags, data }) {
+  error({ message, error, ...rest }) {
     console.error(message, error);
     sendLog({
       message,
       error,
-      data,
-      tags,
+      ...rest,
       level: LOG_LEVELS.ERROR,
     });
   },
