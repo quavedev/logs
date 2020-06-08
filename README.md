@@ -23,7 +23,7 @@ You need to configure this package using your settings.
 
 You have two important fields:
 - `sendToServer`: define the levels that are going to the server from client logs
-- `loggly`: `token`, `subdomain` and `tags` to configure loggly 
+- `loggly`: `token`, `subdomain` and `tags` to configure loggly. You can also provide an array of Strings `messagesToSkip` then if the log contains this message it won't be sent.
 ```
 {
   "public": {

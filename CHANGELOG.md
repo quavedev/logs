@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.0.5 - 06/07/2020
+### Breaking Changes
+- N/A
+
+### Changes
+- Adds a way to skip sending some logs to Loggly on settings: `messagesToSkip`
+- Adds a way to log something without sending to Loggly: `isSend`
+
 ## v1.0.4 - 05/22/2020
 ### Breaking Changes
 - N/A
