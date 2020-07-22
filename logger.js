@@ -115,7 +115,7 @@ const sendLog = ({
 
 export const logger = {
   info({ message, ...rest }) {
-    console.log(message);
+    console.log(message, rest);
     sendLog({
       message,
       ...rest,
@@ -123,7 +123,7 @@ export const logger = {
     });
   },
   warn({ message, error, ...rest }) {
-    console.warn(message, error);
+    console.warn(message, rest, error);
     sendLog({
       message,
       error,
@@ -132,7 +132,7 @@ export const logger = {
     });
   },
   error({ message, error, ...rest }) {
-    console.error(message, error);
+    console.error(message, rest, error);
     sendLog({
       message,
       error,

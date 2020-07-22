@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.0.6 - 22/07/2020
+### Breaking Changes
+- N/A
+
+### Changes
+- Adds other properties to console as well and not only message and error
+
 ## v1.0.5 - 06/07/2020
 ### Breaking Changes
 - N/A
