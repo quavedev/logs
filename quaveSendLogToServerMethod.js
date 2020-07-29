@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Meteor } from 'meteor/meteor';
-import { logger } from 'meteor/quave:logs/logger';
+import { logger } from './logger';
 import { PACKAGE_NAME, settings } from './loggerCommon';
 
 const { isVerbose } = settings;
