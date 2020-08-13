@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { Meteor } from 'meteor/meteor';
-import { LOG_LEVELS, settings } from './loggerCommon';
+import {Meteor} from 'meteor/meteor';
+import {LOG_LEVELS, settings} from './loggerCommon';
 
 const { sendToServer = [] } = settings;
 
@@ -18,7 +18,7 @@ const treatArgs = args => {
 
 export const loggerClient = {
   info(args = {}) {
-    console.log(args);
+    console.log(JSON.stringify(args, null, 4));
     if (sendToServer.includes(LOG_LEVELS.INFO)) {
       Meteor.call('quaveSendLogToServer', {
         level: LOG_LEVELS.INFO,
