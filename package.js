@@ -1,6 +1,6 @@
 Package.describe({
   name: 'quave:logs',
-  version: '1.0.6',
+  version: '1.0.7',
   summary: 'Utility package to send logs from client and server to loggly',
   git: 'https://github.com/quavedev/logs',
 });
