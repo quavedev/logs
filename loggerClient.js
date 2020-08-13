@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import {Meteor} from 'meteor/meteor';
-import {LOG_LEVELS, settings} from './loggerCommon';
+import { Meteor } from 'meteor/meteor';
+import { LOG_LEVELS, settings } from './loggerCommon';
 
 const { sendToServer = [] } = settings;
 
@@ -27,7 +27,8 @@ export const loggerClient = {
     }
   },
   warn(args = {}) {
-    console.warn(args);
+    const { error, ...rest } = args;
+    console.warn(JSON.stringify(rest, null, 4), error);
     if (sendToServer.includes(LOG_LEVELS.WARN)) {
       Meteor.call('quaveSendLogToServer', {
         level: LOG_LEVELS.WARN,
@@ -36,7 +37,8 @@ export const loggerClient = {
     }
   },
   error(args = {}) {
-    console.error(args);
+    const { error, ...rest } = args;
+    console.error(JSON.stringify(rest, null, 4), error);
     if (sendToServer.includes(LOG_LEVELS.ERROR)) {
       Meteor.call('quaveSendLogToServer', {
         level: LOG_LEVELS.ERROR,
