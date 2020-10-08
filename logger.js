@@ -87,6 +87,7 @@ const sendLog = ({
   const messageToSend =
     message && message.toString ? message.toString() : undefined;
   const isMessageToSkipSend =
+    messageToSend &&
     messagesToSkip &&
     messagesToSkip.length &&
     messagesToSkip.some(message => messageToSend.includes(message));

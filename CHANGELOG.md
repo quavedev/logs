@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.0.8 - 07/10/2020
+### Breaking Changes
+- N/A
+
+### Changes
+- Fix error on skipping messages to send
+
 ## v1.0.6 - 22/07/2020
 ### Breaking Changes
 - N/A
