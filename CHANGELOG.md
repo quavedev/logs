@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.0.9 - 2023-11-15
+### Breaking Changes
+- N/A
+
+### Changes
+- Adds a explicit relationship to ddp-server to avoid errors in Meteor 3 when loading packages
+
 ## v1.0.8 - 07/10/2020
 ### Breaking Changes
 - N/A
